@@ -49,21 +49,7 @@ yarn add -D auto-control-miniprogram
 
 ### 1. 下载上传私钥
 
-登录 [mp.weixin.qq.com](https://mp.weixin.qq.com) → **开发管理 → 开发设置 → 小程序代码上传** → 生成并下载 `private.<appid>.key`。
-
-把私钥放到项目根目录的 `.keys/`（默认路径）：
-
-```bash
-mkdir -p .keys
-mv ~/Downloads/private.wxXXXXXXXX.key .keys/
-```
-
-并在 `.gitignore` 加上：
-
-```gitignore
-.keys/
-qrcode.jpg
-```
+登录 [mp.weixin.qq.com](https://mp.weixin.qq.com) → **开发管理 → 开发设置 → 小程序代码上传** → 生成并下载 `private.<appid>.key`。下载到默认 `~/Downloads/` 即可，下一步 `acmp init` 会自动把它复制到 `.keys/`；也可以手动放到 `.keys/`。
 
 ### 2. 配置 IP 白名单
 
@@ -71,7 +57,7 @@ qrcode.jpg
 
 > 不知道自己 IP？跑 `curl ifconfig.me`，或第一次执行 `acmp preview` 时报错信息会直接告诉你 IP 是多少。
 
-### 3. 创建配置文件
+### 3. 一键初始化
 
 在项目根目录运行：
 
@@ -79,7 +65,22 @@ qrcode.jpg
 npx acmp init
 ```
 
-会生成 `acmp.config.js` 模板。把里面的 `appid` 填成你自己的，其它字段按需调整。
+`init` 会一次性完成：
+
+- 生成 `acmp.config.js` 模板（已存在则不覆盖）
+- 创建 `.keys/` 目录
+- 自动从 `~/Downloads/` 复制 `private.wx*.key` 到 `.keys/`（找不到则提示手动放）
+- 把 `.keys/` 与 `qrcode.jpg` 追加到 `.gitignore`
+- 往 `package.json` 注入两条脚本：`ci:preview`（生成图片二维码）、`ci:upload`
+
+可选开关：
+
+```bash
+npx acmp init --no-copy-keys       # 不要从 ~/Downloads 自动复制私钥
+npx acmp init --no-inject-scripts  # 不要往 package.json 写 scripts
+```
+
+完成后把 `acmp.config.js` 里的 `appid` 改成自己的即可。
 
 ## 使用
 
@@ -105,12 +106,19 @@ npx acmp preview --config ./build/acmp.config.js
 npx acmp pack-npm
 ```
 
-也可以加进 `package.json` 的 `scripts`：
+`acmp init` 会默认往 `package.json` 注入这两条脚本，之后用包管理器跑即可：
+
+```bash
+pnpm ci:preview   # 等价于 acmp preview --qr-format image，每次执行直接覆盖 ./qrcode.jpg
+pnpm ci:upload    # 上传到「开发版本」列表，需要追加 --version <ver> --desc <desc>
+```
+
+对应的 `package.json` 片段：
 
 ```json
 {
   "scripts": {
-    "ci:preview": "acmp preview",
+    "ci:preview": "acmp preview --qr-format image",
     "ci:upload": "acmp upload"
   }
 }

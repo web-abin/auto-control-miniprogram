@@ -20,8 +20,17 @@ program
 
 program
   .command('init')
-  .description('在当前目录生成 acmp.config.js 模板')
-  .action(() => init(process.cwd()))
+  .description(
+    '初始化：生成 acmp.config.js、创建 .keys/、自动复制 ~/Downloads 中的私钥、注入 package.json scripts',
+  )
+  .option('--no-copy-keys', '不要从 ~/Downloads 自动复制 private.wx*.key 到 .keys/')
+  .option('--no-inject-scripts', '不要往 package.json 注入 ci:preview / ci:upload 脚本')
+  .action((opts) =>
+    init(process.cwd(), {
+      copyKeys: opts.copyKeys,
+      injectScripts: opts.injectScripts,
+    }),
+  )
 
 program
   .command('preview')

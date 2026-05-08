@@ -4,7 +4,7 @@
 export { preview } from './commands/preview.js'
 export { upload } from './commands/upload.js'
 export { packNpm } from './commands/pack-npm.js'
-export { init } from './commands/init.js'
+export { init, type InitOptions } from './commands/init.js'
 export { defineConfig, loadConfig, resolveConfig } from './config.js'
 export type {
   AcmpConfig,

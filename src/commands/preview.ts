@@ -1,4 +1,6 @@
 import ci from 'miniprogram-ci'
+import { existsSync, mkdirSync } from 'node:fs'
+import { dirname } from 'node:path'
 import { runBuild } from '../utils/run-build.js'
 import { createProject } from '../utils/create-project.js'
 import { makeProgressHandler } from '../utils/progress.js'
@@ -17,6 +19,14 @@ export async function preview(
   const project = createProject(cfg)
   const qrcodeFormat = args.qrcodeFormat || cfg.qrcodeFormat || 'terminal'
   const qrcodeOutput = args.qrcodeOutput || cfg.qrcodeOutput!
+
+  let willOverwrite = false
+  if (qrcodeFormat === 'image') {
+    const dir = dirname(qrcodeOutput)
+    if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
+    willOverwrite = existsSync(qrcodeOutput)
+  }
+
   logger.info(`生成体验版二维码  appid=${cfg.appid}  type=${cfg.type}`)
   await ci.preview({
     project,
@@ -33,7 +43,7 @@ export async function preview(
     onProgressUpdate: makeProgressHandler(),
   })
   if (qrcodeFormat === 'image') {
-    logger.ok(`二维码图片：${qrcodeOutput}`)
+    logger.ok(`二维码图片${willOverwrite ? '已覆盖' : '已生成'}：${qrcodeOutput}`)
   } else if (qrcodeFormat === 'terminal') {
     logger.ok('体验版已上传，扫描上方二维码即可体验')
   } else {
