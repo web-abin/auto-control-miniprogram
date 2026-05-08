@@ -1,6 +1,6 @@
 {
   "name": "auto-control-miniprogram",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "微信小程序 / 小游戏自动化工具：一行命令完成代码上传、生成体验版二维码、构建 miniprogram_npm 等流程，封装自官方 miniprogram-ci",
   "keywords": [
     "wechat",
