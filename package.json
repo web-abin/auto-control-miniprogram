@@ -1,0 +1,80 @@
+{
+  "name": "auto-control-miniprogram",
+  "version": "0.1.0",
+  "description": "微信小程序 / 小游戏自动化工具：一行命令完成代码上传、生成体验版二维码、构建 miniprogram_npm 等流程，封装自官方 miniprogram-ci",
+  "keywords": [
+    "wechat",
+    "weixin",
+    "miniprogram",
+    "minigame",
+    "miniprogram-ci",
+    "wxa",
+    "ci",
+    "qrcode",
+    "preview",
+    "upload",
+    "auto-control",
+    "微信",
+    "小程序",
+    "小游戏",
+    "二维码",
+    "上传"
+  ],
+  "license": "MIT",
+  "author": "wangjunbin <wellxabin@gmail.com>",
+  "homepage": "https://github.com/web-abin/auto-control-miniprogram#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/web-abin/auto-control-miniprogram.git"
+  },
+  "bugs": {
+    "url": "https://github.com/web-abin/auto-control-miniprogram/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "acmp": "./dist/cli.cjs",
+    "auto-control-miniprogram": "./dist/cli.cjs"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "tsup",
+    "release": "npm publish --access public"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "cosmiconfig": "^9.0.0",
+    "miniprogram-ci": "^2.1.31",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

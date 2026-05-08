@@ -1,0 +1,19 @@
+# 发布到 npm 时不带这些文件（package.json 的 files 字段是白名单，
+# .npmignore 仅作为兜底）
+src
+examples
+.github
+.vscode
+.idea
+.editorconfig
+.gitignore
+.nvmrc
+tsconfig.json
+tsup.config.ts
+CONTRIBUTING.md
+*.tsbuildinfo
+.pnpm-store
+node_modules
+.keys
+qrcode.jpg
+qrcode-*.jpg
