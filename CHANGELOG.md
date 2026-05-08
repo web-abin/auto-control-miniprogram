@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-05-08
+
+### 修复
+
+- `acmp upload` 子命令的 `--version` 与主程序 `-V/--version` 冲突导致直接打印版本号退出，改用 `--ver <version>`（保留 `-v` 短参）
+
 ## [0.2.0] - 2026-05-08
 
 ### 新增
@@ -30,6 +36,7 @@
 - 同时支持微信小程序 (`miniProgram`) 与微信小游戏 (`miniGame`)
 - 完整的 TypeScript 类型声明
 
-[Unreleased]: https://github.com/web-abin/auto-control-miniprogram/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/web-abin/auto-control-miniprogram/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/web-abin/auto-control-miniprogram/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/web-abin/auto-control-miniprogram/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/web-abin/auto-control-miniprogram/releases/tag/v0.1.0
