@@ -62,7 +62,7 @@ program
 program
   .command('upload')
   .description('上传到「开发版本」列表（不自动提审 / 发布）')
-  .requiredOption('--version <version>', '版本号，例如 1.0.0')
+  .requiredOption('--ver <version>', '版本号，例如 1.0.0')
   .requiredOption('--desc <desc>', '版本描述')
   .option('-c, --config <path>', '指定配置文件路径')
   .option('--no-build', '跳过 build 命令')
@@ -72,7 +72,7 @@ program
       await upload(
         cfg,
         {
-          version: opts.version,
+          version: opts.ver,
           desc: opts.desc,
           build: opts.build,
         },
